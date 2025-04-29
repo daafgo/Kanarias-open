@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanarian Open - Rankings</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .nav-tabs .nav-link.active {
+      background-color: #343a40;
+      color: white;
+    }
+    .icon-logo {
+    background-repeat: no-repeat !important;
+    display: inline-block;
+    padding: 10px;
+    height: 20px;
+    width: 55px;
+    }
+    .active > i.icon-logo {
+    filter: invert(1);
+}
+
+.wh40k {
+    background: url(assets/logos/aquila.svg);
+}
+.sigmar{
+    background: url(assets/logos/sigmar.svg);
+}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="#">Kanarian Open</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Rankings</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h1 class="text-center mb-4">Clasificaciones Regionales</h1>
+
+  <ul class="nav nav-tabs mb-4" id="rankingTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="tab-40k" data-bs-toggle="tab" data-bs-target="#content-40k" type="button" role="tab"><i class=" icon-logo wh40k"></i> Warhammer 40k</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="tab-aos" data-bs-toggle="tab" data-bs-target="#content-aos" type="button" role="tab"><i class=" icon-logo sigmar"></i> Age of Sigmar</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="tab-oldworld" data-bs-toggle="tab" data-bs-target="#content-oldworld" type="button" role="tab">The Old World</button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="rankingTabsContent">
+    <div class="tab-pane fade show active" id="content-40k" role="tabpanel">
+      <div id="bloque-40k"></div>
+    </div>
+    <div class="tab-pane fade" id="content-aos" role="tabpanel">
+      <div id="bloque-aos"></div>
+    </div>
+    <div class="tab-pane fade" id="content-oldworld" role="tabpanel">
+      <div id="bloque-oldworld"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const API_URL = 'https://TUDOMINIO.com/api/ranking'; // Reemplaza con tu URL real
+  const searchInput = document.getElementById('searchInput');//
+  const tableBody = document.querySelector('#rankingTable tbody');
+  const pagination = document.getElementById('pagination');
+  let data = [
+    {
+        "id": "CsSlNGinob",
+        "name": "Jacinto López",
+        "rating": 1799.625803773736,
+        "mainFaction": "Emperor's Children",
+        "matches": 3
+    },
+    {
+        "id": "9MdjcyLvNm",
+        "name": "Nelson WiRm",
+        "rating": 1799.625803773736,
+        "mainFaction": "Chaos Daemons",
+        "matches": 3
+    },
+    {
+        "id": "1jPiY3VbdMzy",
+        "name": "Jorge Hoyos Aleman",
+        "rating": 1699.7505324759923,
+        "mainFaction": "Necrons",
+        "matches": 3
+    },
+    {
+        "id": "Q4B2PLA2CD",
+        "name": "Marcos Sokram Mejias",
+        "rating": 1599.875265226142,
+        "mainFaction": "Adeptus Custodes",
+        "matches": 3
+    },
+    {
+        "id": "FwshDG3NU7",
+        "name": "Jose Arturo Pérez Díaz",
+        "rating": 1599.875265226142,
+        "mainFaction": "Chaos Daemons",
+        "matches": 3
+    },
+    {
+        "id": "7F4180KHHR",
+        "name": "Julian Lorenzo",
+        "rating": 1599.875265226142,
+        "mainFaction": "Thousand Sons",
+        "matches": 3
+    },
+    {
+        "id": "VJW369X27K",
+        "name": "Carlos Mesa",
+        "rating": 1599.875265226142,
+        "mainFaction": "Death Guard",
+        "matches": 3
+    },
+    {
+        "id": "rhGTMKfGO9",
+        "name": "Daniel Afonso",
+        "rating": 1599.875265226142,
+        "mainFaction": "Drukhari",
+        "matches": 3
+    },
+    {
+        "id": "AskoxoqdUy",
+        "name": "Josué Acosta Rodríguez",
+        "rating": 1500.0,
+        "mainFaction": "Necrons",
+        "matches": 3
+    },
+    {
+        "id": "mDcuAXa7hC",
+        "name": "Diego Ravelo Díaz",
+        "rating": 1500.0,
+        "mainFaction": "Orks",
+        "matches": 3
+    },
+    {
+        "id": "qEzv1CcJiJ",
+        "name": "Eduardo \"Gaspi\"",
+        "rating": 1500.0,
+        "mainFaction": "Leagues of Votann",
+        "matches": 3
+    },
+    {
+        "id": "WHKE87CC9M",
+        "name": "Vasilii Klaiman",
+        "rating": 1400.124734773858,
+        "mainFaction": "Necrons",
+        "matches": 3
+    },
+    {
+        "id": "fPQhJooqNx",
+        "name": "Edgar Azcona",
+        "rating": 1400.124734773858,
+        "mainFaction": "Orks",
+        "matches": 3
+    },
+    {
+        "id": "HD2QTP44GB",
+        "name": "Javier Lino De Lara",
+        "rating": 1400.124734773858,
+        "mainFaction": "Chaos Daemons",
+        "matches": 3
+    },
+    {
+        "id": "YXBF6B4A6J",
+        "name": "Rodrigo Alguinzones Hernández",
+        "rating": 1400.124734773858,
+        "mainFaction": "Necrons",
+        "matches": 3
+    },
+    {
+        "id": "DV06N4TYNX",
+        "name": "Omero Romolo",
+        "rating": 1400.124734773858,
+        "mainFaction": "Space Marines (Astartes)",
+        "matches": 3
+    },
+    {
+        "id": "QBC8AA02YU",
+        "name": "Adolfo Cavia Saiz",
+        "rating": 1400.124734773858,
+        "mainFaction": "Death Guard",
+        "matches": 3
+    },
+    {
+        "id": "HR52WRRX85",
+        "name": "Carlos David Martín Trujillo",
+        "rating": 1400.124734773858,
+        "mainFaction": "Black Templars",
+        "matches": 3
+    },
+    {
+        "id": "D1KX2GAUBU",
+        "name": "Adrián Perera",
+        "rating": 1200.374196226264,
+        "mainFaction": "Tyranids",
+        "matches": 3
+    },
+    {
+        "id": "aW3ZX1uUU3SZ",
+        "name": "Febe Fariña",
+        "rating": 1200.374196226264,
+        "mainFaction": "Chaos Space Marines",
+        "matches": 3
+    }
+];
+  let currentPage = 1;
+  const rowsPerPage = 10;
+
+  function createRankingBlock(containerId, data) {
+    const wrapper = document.getElementById(`bloque-${containerId}`);
+    wrapper.innerHTML = `
+      <div class="row mb-3">
+        <div class="col-md-6 offset-md-3">
+          <input type="text" class="form-control" id="search-${containerId}" placeholder="Buscar jugador...">
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover" id="table-${containerId}">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Jugador</th>
+              <th>Puntuación</th>
+              <th>Facción</th>
+              <th>Partidas</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <nav>
+        <ul class="pagination justify-content-center" id="pagination-${containerId}"></ul>
+      </nav>
+    `;
+
+    const searchInput = document.getElementById(`search-${containerId}`);
+    const tableBody = document.querySelector(`#table-${containerId} tbody`);
+    const pagination = document.getElementById(`pagination-${containerId}`);
+
+    let currentPage = 1;
+    const rowsPerPage = 10;
+
+    function renderTableRows(filteredData) {
+      tableBody.innerHTML = '';
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      filteredData.slice(start, end).forEach((player, i) => {
+        const row = `
+          <tr>
+            <td>${start + i + 1}</td>
+            <td>${player.name}</td>
+            <td>${player.rating.toFixed(2)}</td>
+            <td>${getFactionIcon(player.mainFaction)}</td>
+            <td>${player.matches}</td>
+          </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', row);
+      });
+    }
+
+    function renderPagination(filteredData) {
+      pagination.innerHTML = '';
+      const pageCount = Math.ceil(filteredData.length / rowsPerPage);
+      for (let i = 1; i <= pageCount; i++) {
+        const li = document.createElement('li');
+        li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+        li.innerHTML = `<button class="page-link">${i}</button>`;
+        li.addEventListener('click', () => {
+          currentPage = i;
+          renderTableRows(filteredData);
+          renderPagination(filteredData);
+        });
+        pagination.appendChild(li);
+      }
+    }
+
+    function applyFilter() {
+      const filtered = data.filter(p => p.name.toLowerCase().includes(searchInput.value.toLowerCase()));
+      currentPage = 1;
+      renderTableRows(filtered);
+      renderPagination(filtered);
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+
+    applyFilter();
+  }
+
+ 
+  createRankingBlock("40k",data);
+  createRankingBlock("aos",data);
+  createRankingBlock("oldworld",data);
+
+
+function getFactionIcon(factionName) {
+  const factionIcons = {
+    "Adeptus Astartes": "space-marines.svg",
+    "Blood Angels": "blood-angels.svg",
+    "Dark Angels": "dark-angels.svg",
+    "Space Wolves": "space-wolves.svg",
+    "Black Templars": "black-templars.svg",
+    "Imperial Fists": "imperial-fists.svg",
+    "White Scars": "white-scars.svg",
+    "Ultramarines": "ultramarines.svg",
+    "Deathwatch": "deathwatch.svg",
+    "Grey Knights": "grey-knights.svg",
+    "Adeptus Custodes": "adeptus-custodes.svg",
+    "Adeptus Mechanicus": "adeptus-mechanicus.svg",
+    "Astra Militarum": "astra-militarum.svg",
+    "Adepta Sororitas": "adepta-sororitas.svg",
+    "Imperial Knights": "imperial-knights.svg",
+    "Inquisition": "inquisition.svg",
+    "Chaos Space Marines": "chaos-space-marines.svg",
+    "Emperor's Children": "emperors-children.svg",
+    "Thousand Sons": "thousand-sons.svg",
+    "World Eaters": "world-eaters.svg",
+    "Death Guard": "death-guard.svg",
+    "Chaos Daemons": "chaos-daemons.svg",
+    "Chaos Knights": "chaos-knights.svg",
+    "Aeldari": "aeldari.svg",
+    "Drukhari": "drukhari.svg",
+    "Harlequins": "harlequins.svg",
+    "Ynnari": "ynnari.svg",
+    "Necrons": "necrons.svg",
+    "Orks": "orks.svg",
+    "T'au": "tau.svg",
+    "Tyranids": "tyranids.svg",
+    "Genestealer Cults": "genestealer-cults.svg",
+    "Leagues of Votann": "leagues-of-votann.svg"
+  };
+
+  const fileName = factionIcons[factionName] || "default.svg";
+  return `<img src="assets/wh40k/${fileName}" alt="${factionName}" title="${factionName}" width="32" height="32">`;
+}
+
+</script>
+</body>
+</html>
